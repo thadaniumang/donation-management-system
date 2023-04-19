@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { convertToEtherString } from "../utils";
 
 interface Props {
   contract: ethers.Contract | null;
@@ -18,14 +17,12 @@ const DonationList = ({ contract }: Props) => {
     const fetchDonations = async () => {
       if (contract) {
         const donationCount = await (contract as any).methods.getDonationCount().call();
-        console.log(donationCount);
         const donationPromises = [];
         for (let i = 0; i < donationCount; i++) {
           const donation = await (contract as any).methods.getDonation(i).call({from: (window as any).ethereum.selectedAddress});
           donationPromises.push(donation);
         }
         const donationResults = await Promise.all(donationPromises);
-        console.log(donationResults);
         const newDonations = donationResults.map((donation) => ({
           donor: donation[0],
           amount: donation[1],
