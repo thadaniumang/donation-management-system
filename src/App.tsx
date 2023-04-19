@@ -21,7 +21,7 @@ const App = () => {
 
       // Initialize contract instance
       if (web3) {
-        const contractAddress = "0x32D7AeE06aA66Cd29ebaDD4FBc5427035199918E";
+        const contractAddress = "0xc34d07D8af2078De033005da8d0e91Cfb5a572b2";
         const abi = DonationManagement.abi;
         const contractInstance = new web3.eth.Contract(
           abi as any,

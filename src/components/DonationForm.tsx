@@ -40,7 +40,7 @@ const DonationForm = ({ contract }: Props) => {
           type="number"
           step="0.01"
           min="0"
-          className="w-40 rounded-md p-2"
+          className="w-40 rounded-md p-2 bg-gray-200"
           value={donationAmount}
           onChange={(e) => setDonationAmount(Number(e.target.value))}
         />
