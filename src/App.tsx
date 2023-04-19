@@ -21,9 +21,12 @@ const App = () => {
 
       // Initialize contract instance
       if (web3) {
-        const contractAddress = "0x93984C21BE860870d0A2fB082eE268bD89c239b1";
+        const contractAddress = "0x32D7AeE06aA66Cd29ebaDD4FBc5427035199918E";
         const abi = DonationManagement.abi;
-        const contractInstance = new web3.eth.Contract(abi as any, contractAddress);
+        const contractInstance = new web3.eth.Contract(
+          abi as any,
+          contractAddress
+        );
         setContract(contractInstance as any);
       }
     };
@@ -38,10 +41,22 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/donate" element={<DonationForm contract={contract} />} />
-          <Route path="/donations" element={<DonationList contract={contract} />} />
-          <Route path="/hospital" element={<HospitalForm contract={contract} />} />
-          <Route path="/addhospital" element={<AddHospital contract={contract} />} />
+          <Route
+            path="/donate"
+            element={<DonationForm contract={contract} />}
+          />
+          <Route
+            path="/donations"
+            element={<DonationList contract={contract} />}
+          />
+          <Route
+            path="/hospital"
+            element={<HospitalForm contract={contract} />}
+          />
+          <Route
+            path="/addhospital"
+            element={<AddHospital contract={contract} />}
+          />
         </Routes>
       </Router>
     </div>

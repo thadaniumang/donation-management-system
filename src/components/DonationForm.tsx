@@ -12,10 +12,11 @@ const DonationForm = ({ contract }: Props) => {
   const handleDonation = async () => {
     if (contract) {
       try {
+        console.log((window as any).ethereum.selectedAddress);
         const amountValue = convertToEtherString(donationAmount);
         await (contract as any).methods.donate().send({
-            from: (window as any).ethereum.selectedAddress,
-            value: amountValue,
+          from: (window as any).ethereum.selectedAddress,
+          value: amountValue,
         });
         alert(`Donation of ${donationAmount} ETH successful!`);
       } catch (error) {
@@ -28,8 +29,8 @@ const DonationForm = ({ contract }: Props) => {
   };
 
   return (
-    <div className="my-4">
-      <h2 className="text-lg font-medium mb-2">Make a Donation</h2>
+    <div className="container mx-auto mt-10 px-96 flex-col my-4">
+      <h2 className="text-lg font-medium mb-5 text-center">Make a Donation</h2>
       <div className="flex items-center">
         <label htmlFor="donationAmount" className="mr-2">
           Donation Amount (ETH):
@@ -39,7 +40,7 @@ const DonationForm = ({ contract }: Props) => {
           type="number"
           step="0.01"
           min="0"
-          className="w-40 rounded-md p-2 border-gray-300"
+          className="w-40 rounded-md p-2"
           value={donationAmount}
           onChange={(e) => setDonationAmount(Number(e.target.value))}
         />
