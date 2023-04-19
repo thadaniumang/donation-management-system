@@ -1,26 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import Web3 from "web3";
+import { ethers } from "ethers";
+import DonationManagement from "./contracts/DonationManagement.json";
+import Home from "./components/Home";
+import DonationForm from "./components/DonationForm";
+import DonationList from "./components/DonationList";
+import HospitalForm from "./components/HospitalForm";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AddHospital from "./components/HospitalAdd";
 
-function App() {
+const App = () => {
+  const [web3, setWeb3] = useState<Web3 | null>(null);
+  const [contract, setContract] = useState<ethers.Contract | null>(null);
+
+  useEffect(() => {
+    const init = async () => {
+      // Initialize Web3 provider
+      const web3 = new Web3("http://localhost:7545");
+      setWeb3(web3);
+
+      // Initialize contract instance
+      if (web3) {
+        const contractAddress = "0x93984C21BE860870d0A2fB082eE268bD89c239b1";
+        const abi = DonationManagement.abi;
+        const contractInstance = new web3.eth.Contract(abi as any, contractAddress);
+        setContract(contractInstance as any);
+      }
+    };
+
+    if (!web3) {
+      init();
+    }
+  }, [web3]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/donate" element={<DonationForm contract={contract} />} />
+          <Route path="/donations" element={<DonationList contract={contract} />} />
+          <Route path="/hospital" element={<HospitalForm contract={contract} />} />
+          <Route path="/addhospital" element={<AddHospital contract={contract} />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
