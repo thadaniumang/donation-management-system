@@ -2,3 +2,27 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.card {
+    @apply p-5 bg-white shadow-lg rounded-lg hover:bg-gray-200 border-2 border-gray-600 transition;
+}
+
+.inputField {
+    @apply rounded-md px-2 py-1 bg-gray-100 border-2 focus:bg-gray-200 border-gray-500;
+}
+
+.submitButton {
+    @apply bg-gray-600 hover:bg-gray-50 border-2 hover:border-gray-600 text-white hover:text-gray-600 rounded-md px-2 py-1;
+}
+
+.pageContainer {
+    @apply w-full md:w-2/3 lg:w-1/2 mx-auto;
+}
+
+.formContainer {
+    @apply md:shadow-lg my-4 p-3 md:px-6 md:py-8 rounded-md border-2 border-gray-600;
+}
+
+.formControl {
+    @apply grid grid-cols-3 gap-x-2 mt-2 items-center;
+}

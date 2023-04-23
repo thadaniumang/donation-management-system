@@ -32,85 +32,101 @@ const AddHospital = ({ contract }: Props) => {
             gas: 1000000,
           });
         alert("Hospital added");
+        setAddress("");
+        setName("");
+        setlocation("");
+        setcontact("");
+        setemail("");
+        setwebsite("");
+        setdesc("");
       } catch (error) {
         console.error(error);
-        alert("Error adding hospital. Please try again later.");
+        alert("Error adding hospital. Only owners can add hospital.");
       }
     }
   };
 
   return (
-    <div className="container mx-auto mt-10 px-96 flex-col my-4">
-      <h2 className="text-lg font-medium mb-5 text-center">Add Hospital</h2>
-      <div className="flex items-center">
-        <label className="mr-2">Address:</label>
+    <div className="pageContainer formContainer">
+      <h2 className="text-lg font-medium mb-12 text-center">Add Hospital</h2>
+      <div className="formControl">
+        <label htmlFor="address" className="mr-2 w-full">Address</label>
         <input
           type="text"
-          className="w-40 rounded-md p-2 border-gray-300 bg-gray-200"
+          id="address"
+          className="inputField col-span-2"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
       </div>
-      <div className="flex items-center mt-2">
-        <label className="mr-2">Name:</label>
+      <div className="formControl">
+        <label htmlFor="name" className="mr-2 w-full">Name</label>
         <input
           type="text"
-          className="w-40 rounded-md p-2 border-gray-300 bg-gray-200"
+          id="name"
+          className="inputField col-span-2"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
-      <div className="flex items-center mt-2">
-        <label className="mr-2">Location:</label>
+      <div className="formControl">
+        <label htmlFor="location" className="mr-2 w-full">Location</label>
         <input
           type="text"
-          className="w-40 rounded-md p-2 border-gray-300 bg-gray-200"
+          id="location"
+          className="inputField col-span-2"
           value={location}
           onChange={(e) => setlocation(e.target.value)}
         />
       </div>
-      <div className="flex items-center mt-2">
-        <label className="mr-2">Contact:</label>
+      <div className="formControl">
+        <label htmlFor="contact" className="mr-2 w-full">Contact</label>
         <input
           type="text"
-          className="w-40 rounded-md p-2 border-gray-300 bg-gray-200"
+          id="contact"
+          className="inputField col-span-2"
           value={contact}
           onChange={(e) => setcontact(e.target.value)}
         />
       </div>
-      <div className="flex items-center mt-2">
-        <label className="mr-2">Email:</label>
+      <div className="formControl">
+        <label htmlFor="email" className="mr-2">Email</label>
         <input
-          type="text"
-          className="w-40 rounded-md p-2 border-gray-300 bg-gray-200"
+          type="email"
+          id="email"
+          className="inputField col-span-2"
           value={email}
           onChange={(e) => setemail(e.target.value)}
         />
       </div>
-      <div className="flex items-center mt-2">
-        <label className="mr-2">Website:</label>
+      <div className="formControl">
+        <label htmlFor="website" className="mr-2">Website</label>
         <input
-          type="text"
-          className="w-40 rounded-md p-2 border-gray-300 bg-gray-200"
+          type="url"
+          id="website"
+          className="inputField col-span-2"
           value={website}
           onChange={(e) => setwebsite(e.target.value)}
         />
       </div>
-      <div className="flex items-center mt-2">
-        <label className="mr-2">Description:</label>
+      <div className="formControl">
+        <label htmlFor="description" className="mr-2">Description</label>
         <input
           type="text"
-          className="w-40 rounded-md p-2 border-gray-300 bg-gray-200"
+          id="description"
+          className="inputField col-span-2"
           value={desc}
           onChange={(e) => setdesc(e.target.value)}
         />
       </div>
-      <button
-        className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2 mt-2"
-        onClick={addHospital}
-      >
-        Add Hospital
-      </button>
+      <div className="text-center mt-12 mb-4">
+        <button
+          className="submitButton"
+          onClick={addHospital}
+        >
+          Add Hospital
+        </button>
+      </div>
     </div>
   );
 };

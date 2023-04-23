@@ -3,7 +3,6 @@ import Web3 from "web3";
 import { ethers } from "ethers";
 import DonationManagement from "./contracts/DonationManagement.json";
 import Home from "./components/Home";
-import DonationForm from "./components/DonationForm";
 import DonationList from "./components/DonationList";
 import HospitalForm from "./components/HospitalForm";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -21,7 +20,7 @@ const App = () => {
 
       // Initialize contract instance
       if (web3) {
-        const contractAddress = "0xc34d07D8af2078De033005da8d0e91Cfb5a572b2";
+        const contractAddress = "0x0ff867d9CE435D170ae31DAc9fc9c94B9277Cf3D";
         const abi = DonationManagement.abi;
         const contractInstance = new web3.eth.Contract(
           abi as any,
@@ -40,13 +39,9 @@ const App = () => {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home contract={contract} />} />
           <Route
-            path="/donate"
-            element={<DonationForm contract={contract} />}
-          />
-          <Route
-            path="/donations"
+            path="/donations/:userType"
             element={<DonationList contract={contract} />}
           />
           <Route

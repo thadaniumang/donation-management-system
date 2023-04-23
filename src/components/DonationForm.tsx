@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ethers } from "ethers";
 import { convertToEtherString } from "../utils";
 
@@ -29,28 +29,25 @@ const DonationForm = ({ contract }: Props) => {
   };
 
   return (
-    <div className="container mx-auto mt-10 px-96 flex-col my-4">
-      <h2 className="text-lg font-medium mb-5 text-center">Make a Donation</h2>
-      <div className="flex items-center">
-        <label htmlFor="donationAmount" className="mr-2">
-          Donation Amount (ETH):
-        </label>
+    <div className="my-6">
+      <div className="flex items-center justify-center">
         <input
           id="donationAmount"
           type="number"
+          placeholder="Donation Amount (ETH)"
           step="0.01"
           min="0"
-          className="w-40 rounded-md p-2 bg-gray-200"
+          className="inputField"
           value={donationAmount}
           onChange={(e) => setDonationAmount(Number(e.target.value))}
         />
+        <button
+          className="submitButton ml-2"
+          onClick={handleDonation}
+        >
+          Donate
+        </button>
       </div>
-      <button
-        className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2 mt-2"
-        onClick={handleDonation}
-      >
-        Donate
-      </button>
     </div>
   );
 };
