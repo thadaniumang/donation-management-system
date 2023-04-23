@@ -75,6 +75,21 @@ const DonationList = ({ contract }: Props) => {
     }
   }, [userType]);
 
+  const [isScreenSizeSmall, setIsScreenSizeSmall] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1320) {
+        setIsScreenSizeSmall(true);
+      } else {
+        setIsScreenSizeSmall(false);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="w-full">
       <h2 className="text-lg font-medium mb-5 text-center">{title}</h2>
@@ -104,35 +119,54 @@ const DonationList = ({ contract }: Props) => {
         showList && (
           <div className="mt-12 mb-6">
             <h2 className="text-lg font-medium mb-2 text-center">Donation List</h2>
-            <table className="w-full text-left">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="p-2 ml-3">#</th>
-                  <th className="p-2">Amount (ETH)</th>
-                  <th className="p-2">Hospital</th>
-                  <th className="p-2">Patient</th>
-                  <th className="p-2">Timestamp</th>
-                  <th className="p-2">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {donations.map((donation, index) => (
-                  <tr key={index}>
-                    <td className="p-2">{index + 1}</td>
-                    <td className="p-2">
-                      {Number(
-                        ethers.formatEther(donation.amount)
-                      ).toFixed(4).toString()}
-                      ETH
-                    </td>
-                    <td className="p-2">{donation.hospital}</td>
-                    <td className="p-2">{donation.patient}</td>
-                    <td className="p-2">{donation.timestamp}</td>
-                    <td className="p-2">{donation.description}</td>
+            { !isScreenSizeSmall ? (
+              <table className="w-full text-left border-2 border-gray-600">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="p-2 ml-3">#</th>
+                    <th className="p-2">Amount (ETH)</th>
+                    <th className="p-2">Hospital</th>
+                    <th className="p-2">Patient</th>
+                    <th className="p-2">Timestamp</th>
+                    <th className="p-2">Description</th>
                   </tr>
+                </thead>
+                <tbody>
+                  {donations.map((donation, index) => (
+                    <tr key={index}>
+                      <td className="p-2">{index + 1}</td>
+                      <td className="p-2">
+                        {Number(
+                          ethers.formatEther(donation.amount)
+                        ).toFixed(4).toString()}
+                        ETH
+                      </td>
+                      <td className="p-2">{donation.hospital}</td>
+                      <td className="p-2">{donation.patient}</td>
+                      <td className="p-2">{new Date(Number(donation.timestamp) * 1000).toLocaleString()}</td>
+                      <td className="p-2">{donation.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : ( 
+              <div className="flex flex-col">
+                {donations.map((donation, index) => (
+                  <div key={index} className="flex flex-col border-2 border-gray-600 rounded-lg p-4 mb-4">
+                    <div className="flex items-center justify-between">
+                      <p className="text-lg font-medium">Donation #{index + 1}</p>
+                      <p className="text-sm">{new Date(Number(donation.timestamp) * 1000).toLocaleString()}</p>
+                    </div>
+                    <div className="flex flex-col mt-2">
+                      <p className="text-sm"><span className="font-semibold">Amount:</span> {Number(ethers.formatEther(donation.amount)).toFixed(4).toString()} ETH</p>
+                      <p className="text-sm"><span className="font-semibold">Hospital:</span> <span className="whitespace-pre-wrap break-words">{donation.hospital}</span></p>
+                      <p className="text-sm"><span className="font-semibold">Patient:</span> <span className="whitespace-pre-wrap break-words">{donation.patient}</span></p>
+                      <p className="text-sm"><span className="font-semibold">Description:</span> {donation.description}</p>
+                    </div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            )}
           </div>
         )
       }

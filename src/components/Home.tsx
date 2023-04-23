@@ -17,7 +17,7 @@ function Home( {contract}: Props ) {
           This platform allows donors to donate money, hospitals to request money for a particular patient, and tracks all transactions. Please choose from the following options:
         </p>
       </div>
-      <div className="sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-6">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-6">
         <Link to="/addhospital" className="card">
           <h2 className="text-xl font-bold mb-2">Add Hospital</h2>
           <p className="text-gray-700">
