@@ -27,7 +27,7 @@ const App = () => {
 
       // Initialize contract instance
       if (web3) {
-        console.log("Connected to Sepolia Network");
+        console.log("Connected to Blockchain Network");
         const contractAddress = process.env.CONTRACT_ADDRESS;
         const abi = DonationManagement.abi;
         const contractInstance = new web3.eth.Contract(
