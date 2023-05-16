@@ -15,15 +15,22 @@ const App = () => {
   useEffect(() => {
     const init = async () => {
       // Initialize Web3 provider
-      const web3 = new Web3("http://localhost:7545");
-      setWeb3(web3);
+      const alchemyUrl = `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
+
+      if (process.env.ENV === "development") {
+        const web3 = new Web3("http://localhost:7545");
+        setWeb3(web3);
+      } else {
+        const web3 = new Web3(alchemyUrl);
+        setWeb3(web3);
+      }
 
       // Initialize contract instance
       if (web3) {
         const contractAddress = process.env.CONTRACT_ADDRESS;
         const abi = DonationManagement.abi;
         const contractInstance = new web3.eth.Contract(
-          abi as any,
+          abi as [],
           contractAddress
         );
         setContract(contractInstance as any);
